@@ -1,0 +1,128 @@
+[
+  {
+    "month": 6,
+    "date": 1,
+    "weekend": true,
+    "weekofday": "토"
+  },
+  {
+    "month": 6,
+    "date": 2,
+    "weekend": true,
+    "weekofday": "일"
+  },
+  {
+    "month": 6,
+    "date": 3,
+    "weekend": false,
+    "weekofday": "월"
+  },
+  {
+    "month": 6,
+    "date": 4,
+    "weekend": false,
+    "weekofday": "화"
+  },
+  {
+    "month": 6,
+    "date": 5,
+    "weekend": false,
+    "weekofday": "수"
+  },
+  {
+    "month": 6,
+    "date": 6,
+    "weekend": true,
+    "weekofday": "목"
+  },
+  {
+    "month": 6,
+    "date": 7,
+    "weekend": false,
+    "weekofday": "금"
+  },
+  {
+    "month": 6,
+    "date": 8,
+    "weekend": true,
+    "weekofday": "토"
+  },
+  {
+    "month": 6,
+    "date": 9,
+    "weekend": true,
+    "weekofday": "일"
+  },
+  {
+    "month": 6,
+    "date": 10,
+    "weekend": false,
+    "weekofday": "월"
+  },
+  {
+    "month": 6,
+    "date": 11,
+    "weekend": false,
+    "weekofday": "화"
+  },
+  {
+    "month": 6,
+    "date": 12,
+    "weekend": false,
+    "weekofday": "수"
+  },
+  {
+    "month": 6,
+    "date": 13,
+    "weekend": false,
+    "weekofday": "목"
+  },
+  {
+    "month": 6,
+    "date": 14,
+    "weekend": false,
+    "weekofday": "금"
+  },
+  {
+    "month": 6,
+    "date": 15,
+    "weekend": true,
+    "weekofday": "토"
+  },
+  {
+    "month": 6,
+    "date": 16,
+    "weekend": true,
+    "weekofday": "일"
+  },
+  {
+    "month": 6,
+    "date": 17,
+    "weekend": false,
+    "weekofday": "월"
+  },
+  {
+    "month": 6,
+    "date": 18,
+    "weekend": false,
+    "weekofday": "화"
+  },
+  {
+    "month": 6,
+    "date": 19,
+    "weekend": false,
+    "weekofday": "수"
+  },
+  {
+    "month": 6,
+    "date": 20,
+    "weekend": false,
+    "weekofday": "목"
+  },
+  {
+    "month": 6,
+    "date": 21,
+    "weekend": false,
+    "weekofday": "금"
+  }
+]
