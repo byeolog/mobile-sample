@@ -1,68 +1,63 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[Create React App](https://github.com/facebook/create-react-app) 기반
 
-## Available Scripts
+## Mobile Web
 
-In the project directory, you can run:
+모바일 웹 화면을 위해 Ant-Design-Mobile 활용<br>
+[`antd-mobile`](https://www.npmjs.com/package/antd-mobile)
 
-### `npm start`
+## 세로형 달력
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+모바일 환경에 적합한 달력 스타일을 찾던 중 아래의 라이브러리 발견<br>
+[`react-native-calendars`](https://github.com/wix/react-native-calendars)의 Agenda 스타일에 꽂혔으나 react native라는 함정에 걸림<br>
+마땅한 라이브러리를 찾지 못해 비슷하게 만들어보기로 함<br>
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+### react-scroll
 
-### `npm test`
+[`react-scroll`](https://www.npmjs.com/package/react-scroll)<br>
+지정한 위치로 스크롤 이동시키기
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### react-waypoint
 
-### `npm run build`
+[`react-waypoint`](https://www.npmjs.com/package/react-waypoint)<br>
+스크롤이 waypoint가 위치한 지점을 지나갈 때 action 발생
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Styled Components
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+스타일 처리기로 [`Styled-Components`](https://www.styled-components.com/)를 활용해봄
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 기억할 것
 
-### `npm run eject`
+```javascript
+    componentDidMount() {
+        window.addEventListener("scroll", this.handleScroll);
+    }
+    componentWillUnmount() {
+        window.removeEventListener("scroll", this.handleScroll);
+    }
+    handleScroll = event => {
+        if (
+        window.scrollY > 125 &&
+        window.scrollY - this.state.preScrollHeight > 0
+        ) {
+        this.setState({
+            headerVisible: false,
+            preScrollHeight: window.scrollY
+        });
+        } else {
+        this.setState({
+            headerVisible: true,
+            preScrollHeight: window.scrollY
+        });
+        }
+    };
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```javascript
+_handleWaypointEnter = a => {
+  this.setState({ waypointDate: a });
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+  if (a === null) a = "1";
+  const id = a.toString();
+  document.getElementById(id).scrollIntoView();
+};
+```
