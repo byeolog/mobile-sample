@@ -28,28 +28,28 @@
 ## 기억할 것
 
 ```javascript
-    componentDidMount() {
-        window.addEventListener("scroll", this.handleScroll);
-    }
-    componentWillUnmount() {
-        window.removeEventListener("scroll", this.handleScroll);
-    }
-    handleScroll = event => {
-        if (
+componentDidMount() {
+    window.addEventListener("scroll", this.handleScroll);
+}
+componentWillUnmount() {
+    window.removeEventListener("scroll", this.handleScroll);
+}
+handleScroll = event => {
+    if (
         window.scrollY > 125 &&
         window.scrollY - this.state.preScrollHeight > 0
-        ) {
+    ) {
         this.setState({
             headerVisible: false,
             preScrollHeight: window.scrollY
         });
-        } else {
+    } else {
         this.setState({
             headerVisible: true,
             preScrollHeight: window.scrollY
         });
-        }
-    };
+    }
+};
 ```
 
 ```javascript
