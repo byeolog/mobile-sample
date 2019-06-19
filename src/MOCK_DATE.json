@@ -124,5 +124,59 @@
     "date": 21,
     "weekend": false,
     "weekofday": "금"
+  },
+  {
+    "month": 6,
+    "date": 22,
+    "weekend": true,
+    "weekofday": "토"
+  },
+  {
+    "month": 6,
+    "date": 23,
+    "weekend": true,
+    "weekofday": "일"
+  },
+  {
+    "month": 6,
+    "date": 24,
+    "weekend": false,
+    "weekofday": "월"
+  },
+  {
+    "month": 6,
+    "date": 25,
+    "weekend": false,
+    "weekofday": "화"
+  },
+  {
+    "month": 6,
+    "date": 26,
+    "weekend": false,
+    "weekofday": "수"
+  },
+  {
+    "month": 6,
+    "date": 27,
+    "weekend": false,
+    "weekofday": "목"
+  },
+  {
+    "month": 6,
+    "date": 28,
+    "weekend": false,
+    "weekofday": "금"
+  },
+  {
+    "month": 6,
+    "date": 29,
+    "weekend": true,
+    "weekofday": "토"
+  },
+  {
+    "month": 6,
+    "date": 30,
+    "weekend": true,
+    "weekofday": "일"
   }
 ]

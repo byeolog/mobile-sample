@@ -1,93 +1,23 @@
 import React, { Component } from "react";
-
-/* eslint no-nested-ternary:0 */
-import { Menu, ActivityIndicator, NavBar } from "antd-mobile";
+import { Menu, ActivityIndicator, NavBar, Icon } from "antd-mobile";
 
 const data = [
   {
     value: "1",
-    label: "Food",
-    children: [
-      {
-        label: "All Foods",
-        value: "1",
-        disabled: false
-      },
-      {
-        label: "Chinese Food",
-        value: "2"
-      },
-      {
-        label: "Hot Pot",
-        value: "3"
-      },
-      {
-        label: "Buffet",
-        value: "4"
-      },
-      {
-        label: "Fast Food",
-        value: "5"
-      },
-      {
-        label: "Snack",
-        value: "6"
-      },
-      {
-        label: "Bread",
-        value: "7"
-      },
-      {
-        label: "Fruit",
-        value: "8"
-      },
-      {
-        label: "Noodle",
-        value: "9"
-      },
-      {
-        label: "Leisure Food",
-        value: "10"
-      }
-    ]
+    label: "메뉴1"
   },
   {
     value: "2",
-    label: "Supermarket",
-    children: [
-      {
-        label: "All Supermarkets",
-        value: "1"
-      },
-      {
-        label: "Supermarket",
-        value: "2",
-        disabled: true
-      },
-      {
-        label: "C-Store",
-        value: "3"
-      },
-      {
-        label: "Personal Care",
-        value: "4"
-      }
-    ]
+    label: "메뉴2"
   },
   {
     value: "3",
-    label: "Extra",
-    isLeaf: true,
-    children: [
-      {
-        label: "you can not see",
-        value: "1"
-      }
-    ]
+    label: "메뉴3",
+    isLeaf: true
   }
 ];
 
-export class MenuExample extends Component {
+export class MenuEx extends Component {
   constructor(...args) {
     super(...args);
     this.state = {
@@ -136,9 +66,10 @@ export class MenuExample extends Component {
     const { initData, show } = this.state;
     const menuEl = (
       <Menu
-        className="foo-menu"
+        className="single-foo-menu"
         data={initData}
-        value={["1", "3"]}
+        value={["1"]}
+        level={1}
         onChange={this.onChange}
         height={document.documentElement.clientHeight * 0.6}
       />
@@ -146,6 +77,7 @@ export class MenuExample extends Component {
     const loadingEl = (
       <div
         style={{
+          position: "absolute",
           width: "100%",
           height: document.documentElement.clientHeight * 0.6,
           display: "flex",
@@ -156,22 +88,15 @@ export class MenuExample extends Component {
       </div>
     );
     return (
-      <div className={show ? "menu-active" : ""}>
+      <div className={show ? "single-menu-active" : ""}>
         <div>
           <NavBar
-            leftContent="Menu"
-            // mode="light"
-            icon={
-              <img
-                src="https://gw.alipayobjects.com/zos/rmsportal/iXVHARNNlmdCGnwWxQPH.svg"
-                className="am-icon am-icon-md"
-                alt=""
-              />
-            }
+            icon={<Icon type="ellipsis" />}
+            //mode="light"
             onLeftClick={this.handleClick}
-            className="top-nav-bar"
+            className="single-top-nav-bar"
           >
-            근로시간
+            근무관리
           </NavBar>
         </div>
         {show ? (initData ? menuEl : loadingEl) : null}
@@ -180,5 +105,4 @@ export class MenuExample extends Component {
     );
   }
 }
-
-export default MenuExample;
+export default MenuEx;
