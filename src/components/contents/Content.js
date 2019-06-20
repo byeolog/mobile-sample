@@ -1,18 +1,20 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import MOCK_DATA from "../../MOCK_DATE.json";
-import { Modal, List, Button, DatePicker, TextareaItem } from "antd-mobile";
+import { Button, Calendar, Icon } from "antd-mobile";
+import moment from "moment";
 
 import "./Content.css";
 
-import enUs from "antd-mobile/lib/date-picker/locale/en_US";
+import enUSforCalendar from "antd-mobile/lib/calendar/locale/en_US";
 
 import Menu from "../menu/Menu";
 import HorizontalCalendar from "./HorizontalCalendar";
 import VerticalCalendar from "./VerticalCalendar";
+import InputModal from "./InputModal";
 
 const calendarData = MOCK_DATA;
-
+const now = new Date();
 let headerVisible = true;
 
 const HeaderWrapper = styled.div`
@@ -53,14 +55,14 @@ const WrapperVerticalCalendar = styled.div`
 `;
 
 const PlusButton = styled.div`
-  height: 60px;
-  width: 60px;
-  border-radius: 30px;
-  background-color: #ff0000;
-  color: #ffffff;
-  font-weight: 900;
-  font-size: 42px;
-  text-align: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 25px;
+  /* background-color: #ff0000; */
+  /* color: #ffffff; */
+  /* font-weight: 900; */
+  /* font-size: 42px; */
+  /* text-align: center; */
   position: fixed;
   bottom: 15px;
   right: 15px;
@@ -68,12 +70,15 @@ const PlusButton = styled.div`
 `;
 
 export default class Content extends Component {
+  originbodyScrollY = document.getElementsByTagName("body")[0].style.overflowY;
+
   state = {
     preScrollHeight: 0,
     headerVisible: true,
     modal1: false,
     modal2: false,
-    waypointDate: 1
+    waypointDate: 1,
+    calendarShow: false
   };
 
   showModal = key => e => {
@@ -118,14 +123,55 @@ export default class Content extends Component {
   _handleWaypointEnter = a => {
     this.setState({ waypointDate: a });
 
-    if (a === null) a = "1";
-    const id = a.toString();
+    if (a === null) a = "h1";
+    const id = "h" + a.toString();
     document.getElementById(id).scrollIntoView();
   };
 
   horizontalHandleClick = a => {
     this.setState({ waypointDate: a });
   };
+
+  openCalendar = () => {
+    document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+    this.setState({
+      calendarShow: true
+    });
+  };
+
+  onConfirm = (startTime, endTime) => {
+    document.getElementsByTagName(
+      "body"
+    )[0].style.overflowY = this.originbodyScrollY;
+
+    const day = moment(startTime.toString(), "ddd MMM DD YYYY HH:mm:ss");
+    // console.log(day.format("D"));
+
+    document.getElementById("v" + day.format("D")).scrollIntoView();
+    document.getElementById("h" + day.format("D")).scrollIntoView();
+
+    this.setState({
+      calendarShow: false,
+      startTime,
+      endTime,
+      waypointDate: parseInt(day.format("D"))
+    });
+  };
+
+  onCancel = () => {
+    document.getElementsByTagName(
+      "body"
+    )[0].style.overflowY = this.originbodyScrollY;
+    this.setState({
+      calendarShow: false,
+      startTime: undefined,
+      endTime: undefined
+    });
+  };
+
+  preMonth = () => {};
+
+  nextMonth = () => {};
 
   render() {
     return (
@@ -134,7 +180,12 @@ export default class Content extends Component {
           <div className={this.state.headerVisible ? "" : "novisible"}>
             <Menu />
           </div>
-          <RenderMonth>6 월</RenderMonth>
+          <RenderMonth>
+            <Icon type="left" onClick={() => this.preMonth()} />
+            &nbsp;
+            <span onClick={() => this.openCalendar()}>6 월</span>&nbsp;
+            <Icon type="right" onClick={() => this.nextMonth()} />
+          </RenderMonth>
           <WrapperHorizontalCalendar>
             <HorizontalCalendar
               calendarData={calendarData}
@@ -150,56 +201,35 @@ export default class Content extends Component {
               waypointEnter={this._handleWaypointEnter}
             />
           </WrapperVerticalCalendar>
-          <PlusButton onClick={this.showModal("modal2")}>+</PlusButton>
+          <PlusButton onClick={this.showModal("modal2")}>
+            <Button
+              type="primary"
+              inline
+              style={{
+                height: "50px",
+                width: "50px",
+                borderRadius: "25px",
+                marginRight: "4px"
+              }}
+            >
+              +
+            </Button>
+          </PlusButton>
         </ContnetWrapper>
-        <Modal
-          popup
-          visible={this.state.modal2}
-          onClose={this.onClose("modal2")}
-          animationType="slide-up"
-          afterClose={() => {
-            // alert("afterClose");
-          }}
-        >
-          <List
-            renderHeader={() => <div>근로시간 등록</div>}
-            //className="popup-list"
-          >
-            <DatePicker
-              mode="date"
-              locale={enUs}
-              title="Select Date"
-              extra="Optional"
-              value={this.state.date}
-              onChange={date => this.setState({ date })}
-            >
-              <List.Item arrow="horizontal">일자</List.Item>
-            </DatePicker>
-            <DatePicker
-              mode="time"
-              locale={enUs}
-              minuteStep={2}
-              use12Hours
-              value={this.state.time}
-              onChange={time => this.setState({ time })}
-            >
-              <List.Item arrow="horizontal">근무시간</List.Item>
-            </DatePicker>
-            <TextareaItem
-              title="사유"
-              placeholder="click the button below to focus"
-              data-seed="logId"
-              autoHeight
-              rows={3}
-              ref={el => (this.customFocusInst = el)}
-            />
-            <List.Item>
-              <Button type="primary" onClick={this.onClose("modal2")}>
-                닫기
-              </Button>
-            </List.Item>
-          </List>
-        </Modal>
+        <InputModal visible={this.state.modal2} onClose={this.onClose} />
+
+        <Calendar
+          type="one"
+          locale={enUSforCalendar}
+          visible={this.state.calendarShow}
+          onCancel={this.onCancel}
+          onConfirm={this.onConfirm}
+          onSelectHasDisableDate={this.onSelectHasDisableDate}
+          getDateExtra={this.getDateExtra}
+          defaultDate={now}
+          minDate={new Date(+now - 5184000000)}
+          maxDate={new Date(+now + 31536000000)}
+        />
       </div>
     );
   }

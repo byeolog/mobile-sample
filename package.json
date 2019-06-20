@@ -5,8 +5,11 @@
   "dependencies": {
     "antd-mobile": "^2.2.14",
     "gh-pages": "^2.0.1",
+    "moment": "^2.24.0",
+    "rc-form": "^2.4.5",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-moment": "^0.9.2",
     "react-scripts": "3.0.1",
     "react-scroll": "^1.7.12",
     "react-waypoint": "^9.0.2",

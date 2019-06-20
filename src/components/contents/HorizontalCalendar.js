@@ -28,7 +28,7 @@ export default function HorizontalCalendar(props) {
             weekend={item.weekend}
             onClick={() => props.horizontalHandleClick(item.date)}
             waypointDate={props.waypointDate === item.date}
-            id={item.date}
+            id={"h" + item.date}
           >
             {item.date}
           </DaySpan>

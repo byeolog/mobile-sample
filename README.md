@@ -25,6 +25,18 @@
 
 스타일 처리기로 [`Styled-Components`](https://www.styled-components.com/)를 활용해봄
 
+## etc.
+
+### moment
+
+[`moment`](https://www.npmjs.com/package/moment)<br>
+date format을 위해 momentjs 사용
+
+### rc-form
+
+[`rc-form`](https://www.npmjs.com/package/rc-form)<br>
+ant design의 InputItem Component를 사용하기 위해 추가
+
 ## 기억할 것
 
 ```javascript
