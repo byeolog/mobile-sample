@@ -36,6 +36,9 @@ const RenderMonth = styled.div`
   padding: 5px;
   font-family: "맑은 고딕";
   background-color: #ffffff;
+
+  display: flex;
+  justify-content: space-between;
 `;
 
 const WrapperHorizontalCalendar = styled.div`
