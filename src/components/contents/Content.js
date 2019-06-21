@@ -76,6 +76,7 @@ export default class Content extends Component {
   originbodyScrollY = document.getElementsByTagName("body")[0].style.overflowY;
 
   state = {
+    calendarData,
     preScrollHeight: 0,
     headerVisible: true,
     modal1: false,
@@ -172,6 +173,43 @@ export default class Content extends Component {
     });
   };
 
+  onSubmit = (date, time, cmt) => {
+    const day = moment(date.toString(), "ddd MMM DD YYYY HH:mm:ss");
+    const exists = this.state.calendarData.find(
+      item => item.date.toString() === day.format("D").toString()
+    );
+    if (exists) {
+      exists.time = time;
+      exists.cmt = cmt;
+    }
+
+    document.getElementById("v" + day.format("D")).scrollIntoView();
+    document.getElementById("h" + day.format("D")).scrollIntoView();
+
+    this.setState({
+      modal2: false,
+      waypointDate: parseInt(day.format("D"))
+    });
+  };
+
+  removeSchedule = date => {
+    const exists = this.state.calendarData.find(
+      item => item.date.toString() === date.toString()
+    );
+    if (exists) {
+      exists.time = null;
+      exists.cmt = null;
+    }
+
+    document.getElementById("v" + date).scrollIntoView();
+    document.getElementById("h" + date).scrollIntoView();
+
+    this.setState({
+      modal2: false,
+      waypointDate: parseInt(date)
+    });
+  };
+
   preMonth = () => {};
 
   nextMonth = () => {};
@@ -191,7 +229,7 @@ export default class Content extends Component {
           </RenderMonth>
           <WrapperHorizontalCalendar>
             <HorizontalCalendar
-              calendarData={calendarData}
+              calendarData={this.state.calendarData}
               waypointDate={this.state.waypointDate}
               horizontalHandleClick={this.horizontalHandleClick}
             />
@@ -200,8 +238,9 @@ export default class Content extends Component {
         <ContnetWrapper>
           <WrapperVerticalCalendar>
             <VerticalCalendar
-              calendarData={calendarData}
+              calendarData={this.state.calendarData}
               waypointEnter={this._handleWaypointEnter}
+              removeSchedule={this.removeSchedule}
             />
           </WrapperVerticalCalendar>
           <PlusButton onClick={this.showModal("modal2")}>
@@ -219,7 +258,11 @@ export default class Content extends Component {
             </Button>
           </PlusButton>
         </ContnetWrapper>
-        <InputModal visible={this.state.modal2} onClose={this.onClose} />
+        <InputModal
+          visible={this.state.modal2}
+          onClose={this.onClose}
+          onSubmit={this.onSubmit}
+        />
 
         <Calendar
           type="one"

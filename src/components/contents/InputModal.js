@@ -14,8 +14,15 @@ import enUs from "antd-mobile/lib/date-picker/locale/en_US";
 
 export class InputModal extends Component {
   state = {
-    date: null
+    date: new Date(),
+    time: null,
+    cmt: null
   };
+
+  // onSubmit = (a, b, c) => {
+  //   console.log(a, b, c);
+  // };
+
   render() {
     const { getFieldProps } = this.props.form;
     return (
@@ -47,6 +54,8 @@ export class InputModal extends Component {
               {...getFieldProps("digit")}
               type="digit"
               placeholder="연장근로시간을 입력해주세요."
+              value={this.state.time}
+              onChange={time => this.setState({ time })}
             >
               연장시간
             </InputItem>
@@ -57,12 +66,23 @@ export class InputModal extends Component {
               autoHeight
               rows={3}
               ref={el => (this.autoFocusInst = el)}
+              value={this.state.cmt}
+              onChange={cmt => this.setState({ cmt })}
             />
 
             <List.Item>
               <Button onClick={this.props.onClose("modal2")}>취소</Button>
               <WhiteSpace />
-              <Button type="primary" onClick={this.props.onClose("modal2")}>
+              <Button
+                type="primary"
+                onClick={() =>
+                  this.props.onSubmit(
+                    this.state.date,
+                    this.state.time,
+                    this.state.cmt
+                  )
+                }
+              >
                 저장
               </Button>
             </List.Item>

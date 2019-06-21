@@ -33,20 +33,50 @@ const RightDiv = styled.div`
   padding: 10px 20px;
 `;
 
+const NoSchecule = styled.span`
+  color: #aaaaaa;
+`;
+
+const InSchedule = styled.div``;
+const InScheduleTime = styled.span`
+  color: #ff0000;
+`;
+const InScheduleCmt = styled.span`
+  color: #999999;
+`;
+
 export default function VcalendarCar(props) {
+  const renderTime = () => {
+    let rtext;
+    if (props.item.time) {
+      rtext = (
+        <InSchedule>
+          연장시간 : <InScheduleTime>{props.item.time}</InScheduleTime>
+          <br />
+          사유 : <InScheduleCmt>{props.item.cmt}</InScheduleCmt>
+        </InSchedule>
+      );
+    } else {
+      rtext = <NoSchecule>일정 없음</NoSchecule>;
+    }
+    return rtext;
+  };
+
+  const confirmOk = () => {};
+
   return (
     <Element name={props.item.date} className="element">
       <SwipeAction
         style={{ backgroundColor: "gray" }}
         autoClose
         right={[
+          // {
+          //   text: "Cancel",
+          //   onPress: () => console.log("cancel"),
+          //   style: { backgroundColor: "#ddd", color: "white" }
+          // },
           {
-            text: "Cancel",
-            onPress: () => console.log("cancel"),
-            style: { backgroundColor: "#ddd", color: "white" }
-          },
-          {
-            text: "Delete",
+            text: "삭제",
             onPress: () => {
               alert(
                 "초과근무 삭제",
@@ -55,25 +85,28 @@ export default function VcalendarCar(props) {
                 }일 초과근무를 삭제하시겠습니까?`,
                 [
                   { text: "Cancel", onPress: () => console.log("cancel") },
-                  { text: "Ok", onPress: () => console.log("ok") }
+                  {
+                    text: "Ok",
+                    onPress: () => props.removeSchedule(props.item.date)
+                  }
                 ]
               );
             },
             style: { backgroundColor: "#F4333C", color: "white" }
           }
         ]}
-        left={[
-          {
-            text: "Reply",
-            onPress: () => console.log("reply"),
-            style: { backgroundColor: "#108ee9", color: "white" }
-          },
-          {
-            text: "Cancel",
-            onPress: () => console.log("cancel"),
-            style: { backgroundColor: "#ddd", color: "white" }
-          }
-        ]}
+        // left={[
+        //   {
+        //     text: "Reply",
+        //     onPress: () => console.log("reply"),
+        //     style: { backgroundColor: "#108ee9", color: "white" }
+        //   },
+        //   {
+        //     text: "Cancel",
+        //     onPress: () => console.log("cancel"),
+        //     style: { backgroundColor: "#ddd", color: "white" }
+        //   }
+        // ]}
         onOpen={() => console.log("global open")}
         onClose={() => console.log("global close")}
       >
@@ -87,16 +120,7 @@ export default function VcalendarCar(props) {
               <Date weekend={props.item.weekend}>{props.item.date}</Date> /{" "}
               {props.item.weekofday}
             </LeftDiv>
-            <RightDiv>
-              근로시간
-              <br />
-              근로시간
-              <br />
-              근로시간
-              <br />
-              근로시간
-              <br />
-            </RightDiv>
+            <RightDiv>{renderTime()}</RightDiv>
           </CardWrapper>
         </Waypoint>
       </SwipeAction>
