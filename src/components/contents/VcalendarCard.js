@@ -62,7 +62,21 @@ export default function VcalendarCar(props) {
     return rtext;
   };
 
-  const confirmOk = () => {};
+  const deleteConfirm = time => {
+    console.log(time);
+    if (!time) return;
+    alert(
+      "초과근무 삭제",
+      `${props.item.month}월 ${props.item.date}일 초과근무를 삭제하시겠습니까?`,
+      [
+        { text: "취소", onPress: () => console.log("cancel") },
+        {
+          text: "삭제",
+          onPress: () => props.removeSchedule(props.item.date)
+        }
+      ]
+    );
+  };
 
   return (
     <Element name={props.item.date} className="element">
@@ -78,37 +92,25 @@ export default function VcalendarCar(props) {
           {
             text: "삭제",
             onPress: () => {
-              alert(
-                "초과근무 삭제",
-                `${props.item.month}월 ${
-                  props.item.date
-                }일 초과근무를 삭제하시겠습니까?`,
-                [
-                  { text: "Cancel", onPress: () => console.log("cancel") },
-                  {
-                    text: "Ok",
-                    onPress: () => props.removeSchedule(props.item.date)
-                  }
-                ]
-              );
+              deleteConfirm(props.item.time);
             },
             style: { backgroundColor: "#F4333C", color: "white" }
           }
         ]}
-        // left={[
-        //   {
-        //     text: "Reply",
-        //     onPress: () => console.log("reply"),
-        //     style: { backgroundColor: "#108ee9", color: "white" }
-        //   },
-        //   {
-        //     text: "Cancel",
-        //     onPress: () => console.log("cancel"),
-        //     style: { backgroundColor: "#ddd", color: "white" }
-        //   }
-        // ]}
-        onOpen={() => console.log("global open")}
-        onClose={() => console.log("global close")}
+        left={[
+          {
+            text: "수정",
+            onPress: () => console.log("modify"),
+            style: { backgroundColor: "#108ee9", color: "white" }
+          }
+          //   {
+          //     text: "Cancel",
+          //     onPress: () => console.log("cancel"),
+          //     style: { backgroundColor: "#ddd", color: "white" }
+          //   }
+        ]}
+        //onOpen={() => console.log("global open")}
+        //onClose={() => console.log("global close")}
       >
         <Waypoint
           onEnter={() => props.waypointEnter(props.item.date)}
