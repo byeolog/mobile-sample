@@ -8,8 +8,6 @@ const DaySpan = styled.span`
   font-weight: 600;
   color: ${props => (props.weekend ? "#e50505" : "#000000")};
   border-bottom: ${props => (props.waypointDate ? "6px solid #616161" : "")};
-  /* border-radius: 20px; */
-  cursor: pointer;
 `;
 
 export default function HorizontalCalendar(props) {
